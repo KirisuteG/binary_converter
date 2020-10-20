@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="/"><h3>Binary Converter</h3></a>
+        <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="navbar-collapse collapse" id="navbarResponsive" >
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="/decimal">Decimal Conversion</a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link"href="/float">Float Conversion</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <br>
+
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+<h1 class="display-4">Binary converter</h1>
+<p class="lead">If you want to convert from float to binary or binary to float you must do it by the IEEE-754 standard.</p>
+</div>
+
+<div class="container">
+  <div class="card-deck mb-3 text-center">
+    <div class="card mb-4 shadow-sm">
+      <div class="card-header">
+        <h4 class="my-0 font-weight-normal">Float to binary</h4>
+      </div>
+      <div class="card-body">
+        <form action="/float" method="POST" id="col1">
+          {{ form.hidden_tag() }}
+          <label for="select1">Select the word size:</label>
+          <select class="form-control" name="select1">
+            <option>Single</option>
+            <option>Double</option>
+          </select>
+          <br>
+          <label class="control-label" for="number">Enter number:</label>
+          <input type="text" class="form-control" placeholder="Enter number" name="number" autofocus>
+          {% for error in form.number.errors %}
+          <span class="text-danger"> {{ error }} </span>
+          {% endfor %}
+          <br>
+          <input type="submit" value="Convert" class="btn btn-lg btn-block btn-primary">
+          <br>
+          <p class="text-center">Result:</p>
+          <p class="text-center">{{ result }}</p>
+        </div>
+        </form>
+    </div>
+
+    <div class="card mb-4 shadow-sm">
+      <div class="card-header">
+        <h4 class="my-0 font-weight-normal">Binary to float</h4>
+      </div>
+      <div class="card-body">
+        <p>Please enter the number's bits in the corresponding place.</p>
+        <form action="/float" id="col2" method="POST">
+          {{ form2.hidden_tag() }}
+          <div class="row">
+            <div class="col-lg-3 mx-auto">
+              <label class="control-label" for="sign">Enter sign:</label>
+              <input type="text" class="form-control" placeholder="Sign" name="sign">  
+            </div>
+            <div class="col-lg-6 mx-auto">
+              <label class="control-label" for="exponent">Enter exponent:</label>
+              <input type="text" class="form-control" placeholder="Exponent" name="exponent">
+            </div>
+            {% for errors in form2.sign.errors%}
+            <span class="text-danger">{{ error }}</span>
+            {% endfor%}
+
+            {% for errors in form2.exponent.errors %}
+            <span class="text-danger">{{ error }}</span>
+            {% endfor %}
+          </div>
+          <br>
+          <label class="control-label" for="mantissa">Enter mantissa:</label>
+          <input type="text" class="form-control" placeholder="Mantissa" name="mantissa">
+          {% for error in form2.mantissa.errors %}
+          <span class="text-danger">{{ error }}</span>
+          {% endfor %}
+          <br>
+          <label for="select2">Select the word size:</label>
+          <select class="form-control" name="select2">
+            <option>Single</option>
+            <option>Double</option>
+          </select>
+          <br>
+          <input type="submit" value="Convert" class="btn btn-lg btn-block btn-primary">
+          <br>
+          <p class="text-center">Result:</p>
+          <p class="text-center">{{ result2 }}</p>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<footer class="pt-4 my-md-5 pt-md-5 border-top">
+
+</footer>
+</div>
+
+
+
+{% endblock %}
