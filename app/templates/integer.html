@@ -36,22 +36,22 @@
     <div class="card-deck mb-3 text-center">
       <div class="card mb-4 shadow-sm">
         <div class="card-header">
-          <h4 class="my-0 font-weight-normal">Decimal conversion</h4>
+          <h4 class="my-0 font-weight-normal">Integer conversion</h4>
         </div>
         <div class="card-body">
-          <form action="/decimal" method="POST" id="col1" novalidate>
+          <form action="/integer" method="POST" id="col1" novalidate>
             {{ form.hidden_tag() }}
             <div class="form-group">
               <label for="select1">From</label>
               <select class="form-control" name="select1">
-                <option>Decimal</option>
+                <option>Integer</option>
                 <option>Binary</option>
               </select>
             </div>
             <div class="form-group">
               <label for="select2">To:</label>
               <select class="form-control" name="select2">
-                <option>Decimal</option>
+                <option>Integer</option>
                 <option>Binary</option>
               </select>
             </div>

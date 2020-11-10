@@ -289,9 +289,6 @@ def floatToBinary(num, presition):
     return sign, binaryToString(binary_exponent), binaryToString(mantisa), message
 
 def binaryToFloat(sign, exponent, mantisa, presition):
-    sign = int(sign)
-    exponent = int(exponent)
-    mantisa = int(mantisa)
     bias, bits = definingPresitionValues(presition)
 
     fraction = convertFraction(stringToBinary(mantisa))

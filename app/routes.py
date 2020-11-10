@@ -1,6 +1,6 @@
 from flask import render_template, request
 from app import app
-from app.forms import DecimalForm, FloatBinaryForm, BinaryFloatForm
+from app.forms import DecimalForm, IntegerForm, FloatBinaryForm, BinaryFloatForm
 from functions import *
 
 from flask import render_template, flash, redirect
@@ -93,9 +93,9 @@ def float():
     
 
     if(form2.validate_on_submit()):
-        sign = request.form['sign']
-        exponent = request.form['exponent']
-        mantissa = request.form['mantissa']
+        sign = request.form['sign2']
+        exponent = request.form['exponent2']
+        mantissa = request.form['mantissa2']
         select2 = request.form.get('select2')
         if(select2 == 'Single'):
             result2 = binaryToFloat(sign, exponent, mantissa, 'single')
@@ -128,4 +128,55 @@ def float():
                             result="",
                             result2="")
 
+@app.route('/integer', methods=['GET', 'POST'])
+def integer():
+    form = IntegerForm()
+    notbinary = False
+    if (form.validate_on_submit()):
+        select1 = request.form.get('select1')
+        select2 = request.form.get('select2')
+        number = request.form['number']
+        if(select1 == 'Integer' and select2 == 'Binary'):
+            result = decimalToBinary(number)
+            return render_template('integer.html',
+                                    form=form,
+                                    result=result, 
+                                    notbinary=notbinary)
+        else:
+            if(select1 == 'Binary' and select2 == 'Integer'):
+                if(validate(number)):
+                    result = binaryToDecimal(number)
+                    return render_template('integer.html',
+                                            form=form, 
+                                            result=result, 
+                                            notbinary=notbinary)
+                else:
+                    notbinary = True
+                    return render_template('integer.html', 
+                                            form=form, 
+                                            result="", 
+                                            notbinary=notbinary)
+            else:
+                if(select1 == 'Binary' and select2 == 'Binary'):
+                    if(validate(number)):
+                        return render_template('integer.html', 
+                                                form=form, 
+                                                result=number, 
+                                                notbinary=notbinary)
+                    else:
+                        notbinary = True
+                        return render_template('integer.html', 
+                                                form=form, 
+                                                result="", 
+                                                notbinary=notbinary)
+                else:
+                    if(select1 == 'Integer' and select2 == 'Integer'):
+                        return render_template('integer.html', 
+                                                form=form, 
+                                                result=number, 
+                                                notbinary=notbinary)
+    return render_template('integer.html', 
+                            form=form, 
+                            result="",
+                            notbinary=notbinary) 
 
